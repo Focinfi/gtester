@@ -23,11 +23,15 @@ func Test(t *testing.T) {
 	ginHandler := func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, string(respJson))
 	}
-	router.GET("/hello", ginHandler)
+	ginHandler2 := func(ctx *gin.Context) {
+		ctx.String(http.StatusOK, string("xx"))
+	}
+	router.GET("/hello/:id", ginHandler)
+	router.GET("/hellos", ginHandler2)
 	ListenAndServe("hello.com", router)
 
 	response := NewRecorder()
-	Get("/hello", response)
-	AssertJsonEqaul(t, response, respMap)
-	AssertEqaul(t, response.Code, http.StatusOK)
+	Get("/hello/1", response)
+	AssertJsonEqual(t, response, respMap)
+	AssertEqual(t, response.Code, http.StatusOK)
 }
