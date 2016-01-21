@@ -8,6 +8,6 @@ type Recoder struct {
 	*httptest.ResponseRecorder
 }
 
-func NewRecorder() *recoder {
-	return &recoder{httptest.NewRecorder()}
+func NewRecorder() *Recoder {
+	return &Recoder{httptest.NewRecorder()}
 }

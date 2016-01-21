@@ -15,12 +15,12 @@ func (client *httpMockClient) listenAndServe(host string, handler http.Handler) 
 	client.handler = handler
 }
 
-func (client *httpMockClient) get(urlStr string, response *recoder) {
+func (client *httpMockClient) get(urlStr string, response *Recoder) {
 	request, _ := http.NewRequest("GET", urlStr, nil)
 	client.handler.ServeHTTP(response, request)
 }
 
-func (client *httpMockClient) post(urlStr string, body io.Reader, response *recoder) {
+func (client *httpMockClient) post(urlStr string, body io.Reader, response *Recoder) {
 	request, _ := http.NewRequest("GET", urlStr, nil)
 	client.handler.ServeHTTP(response, request)
 }
@@ -31,10 +31,10 @@ func ListenAndServe(host string, handler http.Handler) {
 	defaultClient.listenAndServe(host, handler)
 }
 
-func GET(urlStr string, response *recoder) {
+func GET(urlStr string, response *Recoder) {
 	defaultClient.get(urlStr, response)
 }
 
-func POST(urlStr string, response *recoder) {
+func POST(urlStr string, response *Recoder) {
 	defaultClient.get(urlStr, response)
 }

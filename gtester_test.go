@@ -1,6 +1,8 @@
 package gtester
 
-import ()
+import (
+	"testing"
+)
 
 func Test(t *testing.T) {
 }
