@@ -33,5 +33,6 @@ func Test(t *testing.T) {
 	response := NewRecorder()
 	Get("/hello/1", response)
 	AssertJsonEqual(t, response, respMap)
+	AssertJsonEqual(t, response, `{"hello":"world"}`)
 	AssertEqual(t, response.Code, http.StatusOK)
 }

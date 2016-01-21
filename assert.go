@@ -26,8 +26,8 @@ func isEqual(result, exp interface{}) bool {
 }
 
 func AssertJsonEqual(t *testing.T, reponse *recoder, exp interface{}) {
-	var expectedStr string
-	if _, ok := exp.(string); !ok {
+	expectedStr, ok := exp.(string)
+	if !ok {
 		b, err := json.Marshal(exp)
 		if err != nil {
 			t.Error(err.Error())
