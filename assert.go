@@ -2,6 +2,7 @@ package gtester
 
 import (
 	"encoding/json"
+	"github.com/Focinfi/gtester/httpmock"
 	"strings"
 	"testing"
 )
@@ -25,7 +26,7 @@ func isEqual(result, exp interface{}) bool {
 	return equal
 }
 
-func AssertJsonEqual(t *testing.T, reponse *recoder, exp interface{}) {
+func AssertJsonEqual(t *testing.T, reponse *httpmock.Recoder, exp interface{}) {
 	expectedStr, ok := exp.(string)
 	if !ok {
 		b, err := json.Marshal(exp)

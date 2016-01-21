@@ -1,10 +1,10 @@
-package gtester
+package httpmock
 
 import (
 	"net/http/httptest"
 )
 
-type recoder struct {
+type Recoder struct {
 	*httptest.ResponseRecorder
 }
 
