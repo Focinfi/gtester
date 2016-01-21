@@ -21,7 +21,7 @@ func Test(t *testing.T) {
 
 	router := gin.Default()
 	ginHandler := func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, string(respJson))
+		ctx.JSON(http.StatusOK, gin.H{"hello": "world"})
 	}
 	ginHandler2 := func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, string("xx"))

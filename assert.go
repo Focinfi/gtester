@@ -8,7 +8,7 @@ import (
 
 func AssertEqual(t *testing.T, result, exp interface{}) {
 	if !isEqual(result, exp) {
-		t.Errorf("Expected %v, Got %v", exp, result)
+		t.Errorf("Expected %#v, Got %#v", exp, result)
 	}
 }
 
@@ -37,5 +37,5 @@ func AssertJsonEqual(t *testing.T, reponse *recoder, exp interface{}) {
 		}
 	}
 
-	AssertEqual(t, reponse.Body.String(), expectedStr)
+	AssertEqual(t, strings.TrimRight(reponse.Body.String(), "\n"), expectedStr)
 }

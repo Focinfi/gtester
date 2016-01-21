@@ -5,7 +5,7 @@ import (
 )
 
 func TestEqual(t *testing.T) {
-	if !isEqual("hello", "hello") {
+	if !isEqual(`{"data":{"title":"The Litle Prince"}}`, `{"data":{"title":"The Litle Prince"}}`) {
 		t.Error("can not detect two same string")
 	}
 }
