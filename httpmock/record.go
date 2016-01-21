@@ -4,10 +4,10 @@ import (
 	"net/http/httptest"
 )
 
-type Recoder struct {
+type Recorder struct {
 	*httptest.ResponseRecorder
 }
 
-func NewRecorder() *Recoder {
-	return &Recoder{httptest.NewRecorder()}
+func NewRecorder() *Recorder {
+	return &Recorder{httptest.NewRecorder()}
 }

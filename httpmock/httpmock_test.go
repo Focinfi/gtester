@@ -6,7 +6,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/Focinfi/gtester"
+	. "github.com/Focinfi/gtester"
+	"github.com/Focinfi/gtester/httpmock"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,11 +30,9 @@ func Test(t *testing.T) {
 	}
 	router.GET("/hello/:id", ginHandler)
 	router.GET("/hellos", ginHandler2)
-	ListenAndServe("hello.com", router)
+	httpmock.ListenAndServe("hello.com", router)
 
-	response := NewRecorder()
-	GET("/hello/1", response)
-	// gtester.gtesterAssertJsonEqual(t, response, respMap)
-	// gtester.gtesterAssertJsonEqual(t, response, `{"hello":"world"}`)
-	// gtester.AssertEqual(t, response.Code, http.StatusOK)
+	response := httpmock.GET("/hello/1", nil)
+	AssertResponseEqual(t, response, `{"hello":"world"}`)
+	AssertEqual(t, response.Code, http.StatusOK)
 }

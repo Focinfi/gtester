@@ -8,12 +8,12 @@ import (
 )
 
 func AssertEqual(t *testing.T, result, exp interface{}) {
-	if !isEqual(result, exp) {
+	if !Equal(result, exp) {
 		t.Errorf("Expected %#v, Got %#v", exp, result)
 	}
 }
 
-func isEqual(result, exp interface{}) bool {
+func Equal(result, exp interface{}) bool {
 	var equal bool
 	switch exp.(type) {
 	case string:
@@ -26,17 +26,25 @@ func isEqual(result, exp interface{}) bool {
 	return equal
 }
 
-func AssertJsonEqual(t *testing.T, reponse *httpmock.Recoder, exp interface{}) {
+func AssertResponseEqual(t *testing.T, reponse *httpmock.Recorder, exp interface{}) {
+	if !ResponseEqual(reponse, exp) {
+		t.Errorf("Expected %#v, Got %#v", exp, reponse.Body.String())
+	}
+}
+
+func stringfy(exp interface{}) string {
 	expectedStr, ok := exp.(string)
 	if !ok {
 		b, err := json.Marshal(exp)
 		if err != nil {
-			t.Error(err.Error())
-			return
+			return ""
 		} else {
 			expectedStr = string(b)
 		}
 	}
+	return expectedStr
+}
 
-	AssertEqual(t, strings.TrimRight(reponse.Body.String(), "\n"), expectedStr)
+func ResponseEqual(response *httpmock.Recorder, exp interface{}) bool {
+	return Equal(strings.TrimRight(response.Body.String(), "\n"), stringfy(exp))
 }
