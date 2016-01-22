@@ -3,6 +3,7 @@ package gtester
 import (
 	"encoding/json"
 	"github.com/Focinfi/gtester/httpmock"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -14,16 +15,7 @@ func AssertEqual(t *testing.T, result, exp interface{}) {
 }
 
 func Equal(result, exp interface{}) bool {
-	var equal bool
-	switch exp.(type) {
-	case string:
-		if res, ok := result.(string); ok {
-			equal = strings.EqualFold(res, exp.(string))
-		}
-	default:
-		equal = result == exp
-	}
-	return equal
+	return reflect.DeepEqual(result, exp)
 }
 
 func AssertResponseEqual(t *testing.T, reponse *httpmock.Recorder, exp interface{}) {
