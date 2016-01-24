@@ -41,7 +41,7 @@ func (client *httpMockClient) DailWithForm(method string, urlStr string, form ma
 	}
 
 	body := ioutil.NopCloser(strings.NewReader(params.Encode()))
-	request, _ := http.NewRequest("POST", urlStr, body)
+	request, _ := http.NewRequest(method, urlStr, body)
 	request.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
 	response := NewRecorder()
 	client.handler.ServeHTTP(response, request)
