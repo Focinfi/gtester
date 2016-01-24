@@ -27,7 +27,7 @@ func (client *httpMockClient) Dail(mehtod string, urlStr string, body io.Reader)
 	return response
 }
 
-func (client *httpMockClient) POSTForm(urlStr string, form map[string]interface{}) (*Recorder, error) {
+func (client *httpMockClient) DailWithForm(method string, urlStr string, form map[string]interface{}) (*Recorder, error) {
 	params := url.Values{}
 	for key := range form {
 		switch value := form[key].(type) {
@@ -63,11 +63,15 @@ func POST(urlStr string, body io.Reader) *Recorder {
 }
 
 func POSTForm(urlStr string, form map[string]interface{}) (*Recorder, error) {
-	return defaultClient.POSTForm(urlStr, form)
+	return defaultClient.DailWithForm("POST", urlStr, form)
 }
 
-func PUT(urlStr string, body io.Reader) *Recorder {
-	return defaultClient.Dail("PUT", urlStr, body)
+func PUT(urlStr string, form map[string]interface{}) (*Recorder, error) {
+	return defaultClient.DailWithForm("PUT", urlStr, form)
+}
+
+func PATCH(urlStr string, form map[string]interface{}) (*Recorder, error) {
+	return defaultClient.DailWithForm("PATCH", urlStr, form)
 }
 
 func DELETE(urlStr string, body io.Reader) *Recorder {
