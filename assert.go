@@ -8,6 +8,18 @@ import (
 	"testing"
 )
 
+func AssertNilError(t *testing.T, err error) {
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func AssertError(t *testing.T, err error) {
+	if err == nil {
+		t.Error(err)
+	}
+}
+
 func AssertEqual(t *testing.T, result, exp interface{}) {
 	if !Equal(result, exp) {
 		t.Errorf("Expected %#v, Got %#v", exp, result)

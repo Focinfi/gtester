@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
@@ -33,8 +32,8 @@ func (client *httpMockClient) DailWithForm(method string, urlStr string, form ma
 		switch value := form[key].(type) {
 		case string:
 			params.Set(key, value)
-		case int:
-			params.Set(key, strconv.Itoa(value))
+		case float64:
+			params.Set(key, fmt.Sprint(value))
 		default:
 			return nil, fmt.Errorf("has unexcepted type of value")
 		}
