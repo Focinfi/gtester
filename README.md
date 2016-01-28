@@ -8,6 +8,39 @@
 ### Usage
 ---
 
+#### CheckQueue
+
+`CheckeQueue` is designed to be a checking execution container, and run them successively, stop and return the error after the first fail execution.
+
+Simple example
+
+```go
+import (
+  "fmt"
+  "github.com/Focinfi/gtester"
+)
+
+func main() {
+  base := 0
+
+  cq := gtester.NewCheckQueue()
+  cq.Add(func() error {
+    base++
+    return nil
+  }).Add(func() error {
+    base++
+    return fmt.Errorf("check2")
+  }).Add(func() error {
+    base++
+    return fmt.Errorf("check3")
+  }).Run()
+
+  gtester.AssertEqual(t, len(cq.Checks), 3)
+  gtester.AssertEqual(t, cq.Err.Error(), "check2")
+  gtester.AssertEqual(t, base, 2)
+}
+```
+
 #### mockhttp package
 
 `mockhttp` provide a container for a http.Handler, and a series of methods to access this Handler and return a reponse for testing.
